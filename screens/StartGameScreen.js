@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Color from '../constants/color';
 import Title from '../components/ui/Title';
 import UserMessage from '../constants/UserMessage';
+import Card from '../components/ui/Card';
+import InstructionText from '../components/ui/InstructionText';
 
 function StartGameScreen({ onPickedNumber }) {
   const [enteredNumber, setEnteredNumber] = useState('');
@@ -38,8 +40,8 @@ function StartGameScreen({ onPickedNumber }) {
   return (
     <View style={styles.rootContainer}>
       <Title>{UserMessage.startscreenTitle}</Title>
-      <View style={styles.inputContainer}>
-        <Text style={styles.instructionText}>{UserMessage.enterNumber}</Text>
+      <Card>
+        <InstructionText>{UserMessage.enterNumber}</InstructionText>
         <TextInput
           style={styles.numberInput}
           maxLength={2}
@@ -57,7 +59,7 @@ function StartGameScreen({ onPickedNumber }) {
             <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
           </View>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
@@ -70,23 +72,6 @@ const styles = StyleSheet.create({
     marginTop: 100,
     padding: 16,
     alignItems: 'center',
-  },
-  inputContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-    marginTop: 36,
-    marginHorizontal: 24,
-    backgroundColor: Color.primary800,
-    elevation: 4,
-    shadowRadius: 4,
-    shadowColor: 'black',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    borderRadius: 8,
-    shadowOpacity: 0.5,
   },
   numberInput: {
     height: 50,
@@ -104,9 +89,5 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
-  },
-  instructionText: {
-    color: Color.accent500,
-    fontSize: 24,
   },
 });

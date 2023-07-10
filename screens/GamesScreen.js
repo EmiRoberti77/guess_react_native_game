@@ -4,6 +4,10 @@ import { useEffect, useState } from 'react';
 import NumberContainer from '../components/game/NumberContainer';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Direction from '../constants/Direction';
+import Card from '../components/ui/Card';
+import UserMessage from '../constants/UserMessage';
+import InstructionText from '../components/ui/InstructionText';
+import { Ionicons } from '@expo/vector-icons';
 
 function generateRandomNumber(min, max, exclude) {
   const runNum = Math.floor(Math.random() * (max - min)) + min;
@@ -58,20 +62,29 @@ function GameScreen({ userNumber, gameOverHandler }) {
 
   return (
     <View style={styles.screen}>
-      <Title>Opponent's Guess</Title>
+      <Title>{UserMessage.opponentGuess}</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
-        <Text>Higher or Lower</Text>
-        <View>
-          <PrimaryButton onPress={nextGuessNumber.bind(this, Direction.lower)}>
-            -
-          </PrimaryButton>
-          <PrimaryButton onPress={nextGuessNumber.bind(this, Direction.higher)}>
-            +
-          </PrimaryButton>
+      <Card>
+        <InstructionText style={styles.instructionText}>
+          {UserMessage.higherOrLower}
+        </InstructionText>
+        <View style={styles.buttonsContainer}>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              onPress={nextGuessNumber.bind(this, Direction.lower)}
+            >
+              <Ionicons name="md-remove" size={24} color="white" />
+            </PrimaryButton>
+          </View>
+          <View style={styles.buttonContainer}>
+            <PrimaryButton
+              onPress={nextGuessNumber.bind(this, Direction.higher)}
+            >
+              <Ionicons name="md-add" size={24} color="white" />
+            </PrimaryButton>
+          </View>
         </View>
-      </View>
-      <View>{/* Log general rounds */}</View>
+      </Card>
     </View>
   );
 }
@@ -82,5 +95,14 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+  },
+  instructionText: {
+    marginBottom: 12,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+  },
+  buttonContainer: {
+    flex: 1,
   },
 });
