@@ -21,7 +21,7 @@ function generateRandomNumber(min, max, exclude) {
 let minBoundary = 1;
 let maxBoundary = 100;
 
-function GameScreen({ userNumber, gameOverHandler }) {
+function GameScreen({ userNumber, gameOverHandler, setRoundsCount }) {
   const initGuess = generateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initGuess);
 
@@ -58,6 +58,7 @@ function GameScreen({ userNumber, gameOverHandler }) {
       currentGuess
     );
     setCurrentGuess(newRandomNumber);
+    setRoundsCount((prev) => prev + 1);
   }
 
   return (
