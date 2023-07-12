@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Alert } from 'react-native';
+import { Text, View, StyleSheet, Alert, FlatList } from 'react-native';
 import Title from '../components/ui/Title';
 import { useEffect, useState } from 'react';
 import NumberContainer from '../components/game/NumberContainer';
@@ -8,6 +8,7 @@ import Card from '../components/ui/Card';
 import UserMessage from '../constants/UserMessage';
 import InstructionText from '../components/ui/InstructionText';
 import { Ionicons } from '@expo/vector-icons';
+import GuessLogItem from '../components/ui/GuessLogItem';
 
 function generateRandomNumber(min, max, exclude) {
   const runNum = Math.floor(Math.random() * (max - min)) + min;
@@ -24,6 +25,13 @@ let maxBoundary = 100;
 function GameScreen({ userNumber, gameOverHandler, setRoundsCount }) {
   const initGuess = generateRandomNumber(1, 100, userNumber);
   const [currentGuess, setCurrentGuess] = useState(initGuess);
+  const [guessedRounds, setGuessedRounds] = useState([initGuess]);
+  const roundLenth = guessedRounds.length;
+
+  useEffect(() => {
+    minBoundary = 1;
+    maxBoundary = 100;
+  }, []);
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -59,6 +67,7 @@ function GameScreen({ userNumber, gameOverHandler, setRoundsCount }) {
     );
     setCurrentGuess(newRandomNumber);
     setRoundsCount((prev) => prev + 1);
+    setGuessedRounds((prev) => [newRandomNumber, ...prev]);
   }
 
   return (
@@ -86,6 +95,15 @@ function GameScreen({ userNumber, gameOverHandler, setRoundsCount }) {
           </View>
         </View>
       </Card>
+      <View style={styles.listContainer}>
+        <FlatList
+          data={guessedRounds}
+          renderItem={({ item, index }) => (
+            <GuessLogItem guessNum={item} roundNum={roundLenth - 1 - index} />
+          )}
+          keyExtractor={(item) => item}
+        />
+      </View>
     </View>
   );
 }
@@ -105,5 +123,9 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flex: 1,
+  },
+  listContainer: {
+    flex: 1,
+    padding: 16,
   },
 });

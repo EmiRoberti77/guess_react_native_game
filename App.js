@@ -31,7 +31,11 @@ export default function App() {
     setIsGameOver(true);
   }
 
-  function startNewGameHandler() {}
+  function startNewGameHandler() {
+    setRoundsCount(0);
+    setIsGameOver(true);
+    setUserNumber(undefined);
+  }
 
   let screen = <StartGameScreen onPickedNumber={pickedNumberHandler} />;
 

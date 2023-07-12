@@ -23,6 +23,7 @@ const UserMessage = {
       </View>
     </View>
   ),
+  opponentGuess: (num) => `Opponent guess ${num}`,
 };
 
 export default UserMessage;

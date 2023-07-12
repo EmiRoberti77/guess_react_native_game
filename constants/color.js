@@ -4,6 +4,7 @@ const Color = {
   primary800: '#3b021f',
   accent500: '#ddb52f',
   defaultBlack: 'black',
+  defaultWhite: 'white',
 };
 
 export default Color;
